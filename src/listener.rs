@@ -23,6 +23,12 @@ impl SBListener {
         SBListener::wrap(unsafe { sys::CreateSBListener() })
     }
 
+    /// Construct a new `SBListener` with name.
+    pub fn new_with_name(name: &str) -> SBListener {
+        let name = CString::new(name).unwrap();
+        SBListener::wrap(unsafe { sys::CreateSBListener2(name.as_ptr()) })
+    }
+
     /// Construct a new `SBListener`.
     pub fn wrap(raw: sys::SBListenerRef) -> SBListener {
         SBListener { raw }
